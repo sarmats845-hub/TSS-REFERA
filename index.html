@@ -1,65 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSS REFERA</title>
+<title>TSS-REFERA | Team Development</title>
+
 <style>
+*{box-sizing:border-box}
+
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f4f6f8;
+    background:#f4f7fb;
     color:#222;
 }
+
 .header{
     background:#111827;
     color:white;
-    padding:25px 20px;
+    padding:22px 18px;
     text-align:center;
 }
-.header h1{margin:0;font-size:30px;}
-.header p{margin:8px 0 0;}
-.container{
-    max-width:500px;
-    margin:30px auto;
-    padding:20px;
+
+.header h1{
+    margin:0;
+    font-size:28px;
 }
+
+.header p{
+    margin:7px 0 0;
+    opacity:.85;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:18px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:20px;
+}
+
 .card{
     background:white;
-    padding:22px;
-    margin-bottom:18px;
+    padding:18px;
     border-radius:14px;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
-h2{margin-top:0;}
-input{
-    width:100%;
-    padding:13px;
-    margin:8px 0;
-    box-sizing:border-box;
-    border:1px solid #ddd;
-    border-radius:8px;
+
+.card h3{
+    margin:0 0 8px;
+    font-size:15px;
+    color:#666;
 }
-button{
-    width:100%;
-    padding:13px;
-    margin-top:8px;
-    border:0;
-    border-radius:8px;
-    background:#2563eb;
-    color:white;
-    font-size:16px;
+
+.number{
+    font-size:28px;
+    font-weight:bold;
 }
-.stats{
+
+.section{
+    background:white;
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:14px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.section h2{
+    margin-top:0;
+}
+
+.grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
     gap:12px;
 }
-.stat{
-    background:#eef2ff;
-    padding:18px;
-    text-align:center;
+
+.item{
+    padding:15px;
+    border:1px solid #e5e7eb;
     border-radius:10px;
+    background:#fafafa;
+}
+
+.item strong{
+    display:block;
+    margin-bottom:6px;
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:11px 16px;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:7px 0 12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.referral{
+    background:#eef6ff;
+    padding:15px;
+    border-radius:10px;
+    word-break:break-all;
+}
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#666;
+}
+
+@media(max-width:700px){
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:450px){
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .number{
+        font-size:23px;
+    }
 }
 </style>
 </head>
@@ -67,44 +157,273 @@ button{
 <body>
 
 <div class="header">
-    <h1>TSS REFERA</h1>
-    <p>Referral • Network • Growth Platform</p>
+    <h1>TSS-REFERA</h1>
+    <p>Team Development Platform</p>
 </div>
 
 <div class="container">
 
-<div class="card">
-    <h2>Welcome</h2>
-    <p>Build Teams • Grow Together</p>
-</div>
+    <!-- Dashboard -->
+    <div class="cards">
 
-<div class="card">
-    <h2>Login</h2>
-    <input type="text" placeholder="Mobile Number">
-    <input type="password" placeholder="Password">
-    <button>Login</button>
-</div>
+        <div class="card">
+            <h3>👥 My Team</h3>
+            <div class="number" id="teamCount">0</div>
+        </div>
 
-<div class="card">
-    <h2>Dashboard Preview</h2>
+        <div class="card">
+            <h3>🟢 Active Members</h3>
+            <div class="number" id="activeCount">0</div>
+        </div>
 
-    <div class="stats">
-        <div class="stat">
-            <b>0</b><br>Direct Members
+        <div class="card">
+            <h3>🎯 Tasks Completed</h3>
+            <div class="number" id="taskCount">0</div>
         </div>
-        <div class="stat">
-            <b>0</b><br>Total Team
+
+        <div class="card">
+            <h3>🏆 Achievements</h3>
+            <div class="number" id="achievementCount">0</div>
         </div>
-        <div class="stat">
-            <b>0</b><br>Rewards
+
+    </div>
+
+    <!-- Profile -->
+    <div class="section">
+        <h2>👤 My Profile</h2>
+
+        <label>Your Name</label>
+        <input id="name" placeholder="మీ పేరు">
+
+        <label>Member ID</label>
+        <input id="memberId" placeholder="TSS001">
+
+        <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <!-- Referral -->
+    <div class="section">
+        <h2>🔗 My Referral</h2>
+
+        <div class="referral" id="referralBox">
+            Complete your profile to create your referral link.
         </div>
-        <div class="stat">
-            <b>TSS001</b><br>Referral Code
+
+        <br>
+
+        <button onclick="copyReferral()">Copy Referral</button>
+    </div>
+
+    <!-- Team -->
+    <div class="section">
+        <h2>👥 My Team</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <strong>Direct Members</strong>
+                <span id="directMembers">0 Members</span>
+            </div>
+
+            <div class="item">
+                <strong>Team Growth</strong>
+                <span>Growing your team</span>
+            </div>
+
+            <div class="item">
+                <strong>Active Members</strong>
+                <span>Build an active team</span>
+            </div>
+
+            <div class="item">
+                <strong>Leadership</strong>
+                <span>Develop future leaders</span>
+            </div>
+
         </div>
     </div>
-</div>
+
+    <!-- Tasks -->
+    <div class="section">
+        <h2>🎯 Today's Team Tasks</h2>
+
+        <div class="item">
+            <strong>1. Contact New People</strong>
+            <button onclick="completeTask(this)">Complete</button>
+        </div>
+
+        <br>
+
+        <div class="item">
+            <strong>2. Follow Up With Team</strong>
+            <button onclick="completeTask(this)">Complete</button>
+        </div>
+
+        <br>
+
+        <div class="item">
+            <strong>3. Complete Training</strong>
+            <button onclick="completeTask(this)">Complete</button>
+        </div>
+
+    </div>
+
+    <!-- Training -->
+    <div class="section">
+        <h2>📚 Training Center</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <strong>Communication Skills</strong>
+                <p>Improve your communication with team members.</p>
+            </div>
+
+            <div class="item">
+                <strong>Team Building</strong>
+                <p>Learn how to build and support a strong team.</p>
+            </div>
+
+            <div class="item">
+                <strong>Leadership</strong>
+                <p>Develop leadership and decision-making skills.</p>
+            </div>
+
+            <div class="item">
+                <strong>Product Knowledge</strong>
+                <p>Understand your product and explain it clearly.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="section">
+        <h2>🏆 Achievements</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <strong>🌱 First Member</strong>
+                <span>Start building your team.</span>
+            </div>
+
+            <div class="item">
+                <strong>👥 Team Builder</strong>
+                <span>Build your first active team.</span>
+            </div>
+
+            <div class="item">
+                <strong>🎯 Goal Achiever</strong>
+                <span>Complete your development goals.</span>
+            </div>
+
+            <div class="item">
+                <strong>⭐ Leader</strong>
+                <span>Help other members grow.</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Announcements -->
+    <div class="section">
+        <h2>📢 Announcements</h2>
+
+        <div class="item">
+            <strong>Welcome to TSS-REFERA</strong>
+            <p>Build your skills, develop your team and grow together.</p>
+        </div>
+
+    </div>
 
 </div>
+
+<div class="footer">
+    TSS-REFERA © 2026 | Team Development Platform
+</div>
+
+<script>
+
+let tasksCompleted =
+    Number(localStorage.getItem("tasksCompleted") || 0);
+
+function saveProfile(){
+
+    const name = document.getElementById("name").value;
+    const memberId = document.getElementById("memberId").value;
+
+    if(!name || !memberId){
+        alert("పేరు మరియు Member ID ఇవ్వండి");
+        return;
+    }
+
+    localStorage.setItem("name",name);
+    localStorage.setItem("memberId",memberId);
+
+    updateProfile();
+
+    alert("Profile Saved Successfully");
+}
+
+function updateProfile(){
+
+    const name = localStorage.getItem("name") || "";
+    const memberId = localStorage.getItem("memberId") || "";
+
+    document.getElementById("name").value = name;
+    document.getElementById("memberId").value = memberId;
+
+    if(memberId){
+
+        const link =
+        window.location.origin +
+        window.location.pathname +
+        "?ref=" + memberId;
+
+        document.getElementById("referralBox").innerText = link;
+    }
+}
+
+function copyReferral(){
+
+    const text =
+    document.getElementById("referralBox").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Referral link copied");
+}
+
+function completeTask(button){
+
+    button.innerText = "✓ Completed";
+    button.disabled = true;
+
+    tasksCompleted++;
+
+    localStorage.setItem(
+        "tasksCompleted",
+        tasksCompleted
+    );
+
+    updateDashboard();
+}
+
+function updateDashboard(){
+
+    document.getElementById("taskCount")
+    .innerText = tasksCompleted;
+
+    document.getElementById("achievementCount")
+    .innerText =
+    tasksCompleted >= 3 ? 1 : 0;
+}
+
+updateProfile();
+updateDashboard();
+
+</script>
 
 </body>
 </html>
